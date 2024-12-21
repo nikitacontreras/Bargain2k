@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Bargain2k
 // @namespace    https://content.elltechnologies.com/
-// @version      2.4
+// @version      2.5
 // @description  Intercepta lesson.JSON, procesa y muestra en treeviews separados para respuestas de Quizzes y Practices.
 // @author       nikitacontreras
 // @match        https://content.elltechnologies.com/index.html*
 // @grant        none
-// @updateURL    https://raw.githubusercontent.com/nikitacontreras/Bargain2k/refs/heads/main/bargain2k.js
+// @updateURL    https://raw.githubusercontent.com/nikitacontreras/Bargain2k/refs/heads/main/bargain2k.js?uc=1
 // @downloadURL  https://raw.githubusercontent.com/nikitacontreras/Bargain2k/refs/heads/main/bargain2k.js
 // ==/UserScript==
 
@@ -27,11 +27,12 @@
 			}
 		}
 
-		__DEFAULT(response) {
-			return response._data
-				.map((data) => data.content)
-				.filter((content) => content != null && content.trim() !== "");
-		}
+        __DEFAULT(response) {
+            return response._data
+            .map((data) => data.content)
+            .filter((content) => content != null)
+            .map((content) => typeof content === 'string' ? content.trim() : content);
+        }
 
 		TAB(question) {
 			options =
